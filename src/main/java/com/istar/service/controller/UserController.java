@@ -7,7 +7,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "${app.cors.allowed-origins}")
 @RestController
@@ -35,5 +37,17 @@ public class UserController {
     public List<User> getUsers() {
         return userService.getAllUsers();
     }
+
+    @GetMapping("/status")
+    public Map<String, String> getStatusLabels() {
+        Map<String, String> statusMap = new HashMap<>();
+        statusMap.put("A", "Active");
+        statusMap.put("B", "Blocked");
+        statusMap.put("C", "Closed");
+        return statusMap;
+    }
+
+
+
 
 }

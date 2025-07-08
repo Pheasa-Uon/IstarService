@@ -31,14 +31,14 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(nullable = false, unique = true)
+    @Column(length = 500)
     private String email;
 
     @Column(name = "is_admin", nullable = false)
     private boolean isAdmin = false;
 
     @Column(name = "user_status", nullable = false)
-    private String userStatus = "A"; // default value
+    private String userStatus; // default value
 
     @Column(length = 500)
     private String description;

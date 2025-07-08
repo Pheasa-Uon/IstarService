@@ -9,8 +9,8 @@ com/istar/service/IstarServiceApplication.class
 com/istar/service/security/JwtAuthenticationFilter.class
 com/istar/service/security/CustomUserDetailsService.class
 com/istar/service/service/UserService.class
+com/istar/service/config/CorsConfig.class
 com/istar/service/security/JwtUtils.class
 com/istar/service/controller/CompileController.class
-com/istar/service/security/SecurityConfig$1.class
 com/istar/service/controller/AuthController.class
 com/istar/service/dto/UserRegistrationDto.class

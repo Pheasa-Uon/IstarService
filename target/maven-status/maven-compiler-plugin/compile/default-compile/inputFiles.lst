@@ -1,7 +1,9 @@
 /Users/pheasa/Documents/Project/002-Service/IstarService/src/main/java/com/istar/service/test/DataInitializer.java
 /Users/pheasa/Documents/Project/002-Service/IstarService/src/main/java/com/istar/service/IstarServiceApplication.java
+/Users/pheasa/Documents/Project/002-Service/IstarService/src/main/java/com/istar/service/config/CorsConfig.java
 /Users/pheasa/Documents/Project/002-Service/IstarService/src/main/java/com/istar/service/service/UserServiceImpl.java
 /Users/pheasa/Documents/Project/002-Service/IstarService/src/main/java/com/istar/service/security/JwtUtils.java
+/Users/pheasa/Documents/Project/002-Service/IstarService/src/main/java/com/istar/service/dto/UserCreationDto.java
 /Users/pheasa/Documents/Project/002-Service/IstarService/src/main/java/com/istar/service/service/UserService.java
 /Users/pheasa/Documents/Project/002-Service/IstarService/src/main/java/com/istar/service/repository/UserRepository.java
 /Users/pheasa/Documents/Project/002-Service/IstarService/src/main/java/com/istar/service/security/JwtAuthenticationFilter.java
