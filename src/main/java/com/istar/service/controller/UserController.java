@@ -54,7 +54,7 @@ public class UserController {
     }
 
     // Update user
-    @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
         User existingUser = userService.getUserById(id);
 
@@ -66,9 +66,9 @@ public class UserController {
         existingUser.setUpdatedAt(LocalDateTime.now());
 
         // If password is present and not empty, encode and update it
-        if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
-            existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-        }
+//        if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
+//            existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+//        }
 
         User savedUser = userService.saveUser(existingUser);
         return ResponseEntity.ok(savedUser);
