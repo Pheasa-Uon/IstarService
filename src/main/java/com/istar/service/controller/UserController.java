@@ -2,7 +2,11 @@ package com.istar.service.controller;
 
 import com.istar.service.model.User;
 import com.istar.service.service.UserService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +34,8 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
+        user.setBStatus(true);  // Set your new boolean field here
+
         return userService.saveUser(user);
     }
 
@@ -47,7 +53,43 @@ public class UserController {
         return statusMap;
     }
 
+    // Update user
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        User existingUser = userService.getUserById(id);
 
+        existingUser.setName(updatedUser.getName());
+        existingUser.setUsername(updatedUser.getUsername());
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setUserStatus(updatedUser.getUserStatus());
+        existingUser.setDescription(updatedUser.getDescription());
+        existingUser.setUpdatedAt(LocalDateTime.now());
 
+        // If password is present and not empty, encode and update it
+        if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
+            existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+        }
+
+        User savedUser = userService.saveUser(existingUser);
+        return ResponseEntity.ok(savedUser);
+    }
+
+    @PutMapping("/api/users/{id}/reset-password")
+    public ResponseEntity<String> resetPassword(@PathVariable("id") Long id) {
+        userService.resetPassword(id);
+        return ResponseEntity.ok("Password has been reset.");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        userService.softDeleteUser(id);
+        return ResponseEntity.ok("User has been soft-deleted.");
+    }
+
+    @GetMapping("/search")
+    public List<User> searchUsers(@RequestParam(required = false) String keyword) {
+        System.out.println(keyword);
+        return userService.searchUsers(keyword);
+    }
 
 }

@@ -13,6 +13,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "user_code", length = 5, unique = true, nullable = false)
+    private String userCode;
+
     @Column(nullable = false, unique = true)
     private String username;
 
@@ -40,6 +43,9 @@ public class User {
     @Column(name = "is_admin", nullable = false)
     private boolean isAdmin = false;
 
+    @Column(name = "b_status", nullable = false)
+    private boolean bStatus = true;
+
     @Column(name = "user_status", nullable = false)
     private String userStatus; // default value
 
@@ -62,6 +68,13 @@ public class User {
         this.id = id;
     }
 
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
     public String getUsername() {
         return username;
     }
@@ -129,6 +142,14 @@ public class User {
         isAdmin = admin;
     }
 
+    public boolean isBStatus() {
+        return bStatus;
+    }
+
+    public void setBStatus(boolean bStatus) {
+        this.bStatus = bStatus;
+    }
+
     public String getUserStatus() {
         return userStatus;
     }
@@ -149,7 +170,7 @@ public class User {
         return email;
     }
 
-    public void setEmail(String description) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
