@@ -27,7 +27,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> searchActiveUsersByKeyword(@Param("keyword") String keyword);
 
 
-    @Query("SELECT MAX(u.userCode) FROM User u")
+    @Query("SELECT MAX(r.rolesCode) FROM Role r")
     String findMaxUserCode();
 
 

@@ -3,6 +3,7 @@ package com.istar.service.repository;
 
 import com.istar.service.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,4 +13,7 @@ import java.util.Optional;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
     Optional<Role> findByRolesCode(String rolesCode);
+
+    @Query("SELECT MAX(u.userCode) FROM User u")
+    String findMaxUserCode();
 }

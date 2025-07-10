@@ -24,6 +24,15 @@ public class RoleService {
     }
 
     public Role createRole(Role role) {
+        if (role.getRolesCode() == null || role.getRolesCode().isEmpty()) {
+            String maxRolesrCode = roleRepository.findMaxUserCode();
+            int nextCode = 1;
+            if (maxRolesrCode != null) {
+                nextCode = Integer.parseInt(maxRolesrCode) + 1;
+            }
+            role.setRolesCode(String.format("%05d", nextCode));
+        }
+
         role.setCreatedAt(LocalDateTime.now());
         role.setUpdatedAt(LocalDateTime.now());
         return roleRepository.save(role);
