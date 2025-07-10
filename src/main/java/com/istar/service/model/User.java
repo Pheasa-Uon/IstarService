@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchConnect
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "rpt_user")
+@Table(name = "sys_users")
 public class User {
 
     @Id
