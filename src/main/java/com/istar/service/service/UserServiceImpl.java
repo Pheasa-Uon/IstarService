@@ -38,19 +38,19 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public User updateUser(Long id, User updatedUser) {
+    public User updateUser(Long id, User existingUser) {
         Optional<User> optionalUser = userRepository.findById(id);
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
 
-            user.setUsername(updatedUser.getUsername());
-            user.setEmail(updatedUser.getEmail());
-            user.setName(updatedUser.getName());
+            user.setUsername(existingUser.getUsername());
+            user.setEmail(existingUser.getEmail());
+            user.setName(existingUser.getName());
 
             // Only update password if it's not null or empty
-            if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
-                user.setPassword(updatedUser.getPassword());
+            if (existingUser.getPassword() != null && !existingUser.getPassword().isEmpty()) {
+                user.setPassword(existingUser.getPassword());
             }
 
             user.setUpdatedAt(LocalDateTime.now());

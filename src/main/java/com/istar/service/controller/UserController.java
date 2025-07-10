@@ -55,23 +55,9 @@ public class UserController {
 
     // Update user
     @PutMapping("/edit/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
-        User existingUser = userService.getUserById(id);
-
-        existingUser.setName(updatedUser.getName());
-        existingUser.setUsername(updatedUser.getUsername());
-        existingUser.setEmail(updatedUser.getEmail());
-        existingUser.setUserStatus(updatedUser.getUserStatus());
-        existingUser.setDescription(updatedUser.getDescription());
-        existingUser.setUpdatedAt(LocalDateTime.now());
-
-        // If password is present and not empty, encode and update it
-        if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
-            existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-        }
-
-        User savedUser = userService.saveUser(existingUser);
-        return ResponseEntity.ok(savedUser);
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        User updated = userService.updateUser(id, user);
+        return ResponseEntity.ok(updated);
     }
 
     @PutMapping("/api/users/{id}/reset-password")
