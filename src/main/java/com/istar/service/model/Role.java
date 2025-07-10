@@ -17,7 +17,7 @@ public class Role {
     private String rolesCode;
 
     @Column(name = "roles_status")
-    private Boolean rolesStatus;
+    private String rolesStatus;
 
     @Column(name = "b_status")
     private Boolean bStatus;
@@ -56,11 +56,11 @@ public class Role {
         this.rolesCode = rolesCode;
     }
 
-    public Boolean getRolesStatus() {
+    public String getRolesStatus() {
         return rolesStatus;
     }
 
-    public void setRolesStatus(Boolean rolesStatus) {
+    public void setRolesStatus(String rolesStatus) {
         this.rolesStatus = rolesStatus;
     }
 

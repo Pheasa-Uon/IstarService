@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/roles")
@@ -41,5 +43,14 @@ public class RoleController {
     public ResponseEntity<?> deleteRole(@PathVariable Long id) {
         roleService.deleteRole(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/status")
+    public Map<String, String> getStatusLabels() {
+        Map<String, String> statusMap = new HashMap<>();
+        statusMap.put("A", "Active");
+        statusMap.put("B", "Blocked");
+        statusMap.put("C", "Closed");
+        return statusMap;
     }
 }
