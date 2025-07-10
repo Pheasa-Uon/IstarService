@@ -49,8 +49,15 @@ public class UserServiceImpl implements UserService {
             user.setName(existingUser.getName());
 
             // Only update password if it's not null or empty
-            if (existingUser.getPassword() != null && !existingUser.getPassword().isEmpty()) {
+//            if (existingUser.getPassword() != null && !existingUser.getPassword().isEmpty()) {
+//                user.setPassword(existingUser.getPassword());
+//            }
+            if (existingUser.getPassword() != null
+                    && !existingUser.getPassword().isEmpty()
+                    && !existingUser.getPassword().equals("$2a$10$")) {
                 user.setPassword(existingUser.getPassword());
+            }else {
+                user.setPassword(passwordEncoder.encode(existingUser.getPassword()));
             }
 
             user.setUpdatedAt(LocalDateTime.now());
