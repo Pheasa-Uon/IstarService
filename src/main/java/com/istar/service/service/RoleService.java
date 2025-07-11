@@ -53,7 +53,13 @@ public class RoleService {
     }
 
     public void deleteRole(Long id) {
-        roleRepository.deleteById(id);
+        Role role = roleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Role not found" + id));
+
+        role.setBStatus(false); // soft delete flag
+        role.setUpdatedAt(LocalDateTime.now());
+        roleRepository.save(role);
     }
+
 }
 

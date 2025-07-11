@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface RoleRepository extends JpaRepository<Role, Long> {
     Optional<Role> findByRolesCode(String rolesCode);
 
-    @Query("SELECT MAX(u.userCode) FROM User u")
+    @Query("SELECT MAX(u.rolesCode) FROM Role u")
     String findMaxUserCode();
 }
