@@ -44,6 +44,7 @@ public class RoleFeaturePermissionService {
                     permission.setIsCancel(updated.getIsCancel());
                     permission.setIsProcess(updated.getIsProcess());
                     permission.setIsImport(updated.getIsImport());
+                    permission.setIsExport(updated.getIsExport());
                     permission.setBStatus(updated.getBStatus());
                     permission.setUpdatedAt(LocalDateTime.now());
                     return permissionRepository.save(permission);

@@ -1,6 +1,7 @@
 package com.istar.service.service;
 
 import com.istar.service.model.Role;
+import com.istar.service.model.User;
 import com.istar.service.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,9 @@ public class RoleService {
     private RoleRepository roleRepository;
 
     public List<Role> getAllRoles() {
-        return roleRepository.findAll();
+
+        //return roleRepository.findAll();
+        return roleRepository.findBybStatusTrue();
     }
 
     public Optional<Role> getRoleById(Long id) {
@@ -59,6 +62,15 @@ public class RoleService {
         role.setBStatus(false); // soft delete flag
         role.setUpdatedAt(LocalDateTime.now());
         roleRepository.save(role);
+    }
+
+    public List<Role> searchRoles(String keyword) {
+        if (keyword == null || keyword.isBlank()) {
+            return roleRepository.findAll().stream()
+                    .filter(Role::isBStatus) // or correct getter method here
+                    .toList();
+        }
+        return roleRepository.searchActiveRolesByKeyword(keyword);
     }
 
 }

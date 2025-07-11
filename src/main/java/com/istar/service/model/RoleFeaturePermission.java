@@ -32,6 +32,7 @@ public class RoleFeaturePermission {
     private Boolean isCancel = false;
     private Boolean isProcess = false;
     private Boolean isImport = false;
+    private Boolean isExport = false;
     private Boolean bStatus = true;
 
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -157,6 +158,14 @@ public class RoleFeaturePermission {
 
     public void setIsImport(Boolean isImport) {
         this.isImport = isImport;
+    }
+
+    public Boolean getIsExport() {
+        return isExport;
+    }
+
+    public void setIsExport(Boolean isExport) {
+        this.isExport = isExport;
     }
 
     public Boolean getBStatus() {

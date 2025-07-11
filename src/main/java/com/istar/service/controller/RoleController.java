@@ -54,4 +54,10 @@ public class RoleController {
         statusMap.put("C", "Closed");
         return statusMap;
     }
+
+    @GetMapping("/search")
+    public List<Role> searchRoles(@RequestParam(required = false) String keyword) {
+        System.out.println(keyword);
+        return roleService.searchRoles(keyword);
+    }
 }

@@ -19,7 +19,7 @@ public class Role {
     @Column(name = "roles_status")
     private String rolesStatus;
 
-    @Column(name = "b_status")
+    @Column(name = "b_status", nullable = false)
     private Boolean bStatus;
 
     private String description;
@@ -94,5 +94,9 @@ public class Role {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public boolean isBStatus() {
+        return bStatus;
     }
 }

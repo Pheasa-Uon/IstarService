@@ -68,6 +68,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/status").permitAll()
                         .requestMatchers("/api/roles/status").permitAll()
                         .requestMatchers("/api/users/search").permitAll()
+                        .requestMatchers("/api/roles/search/**").permitAll()
                         .requestMatchers("/api/users/*/reset-password").permitAll()
                         .anyRequest().authenticated()
                 )

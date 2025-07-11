@@ -35,55 +35,6 @@ public class AuthController {
         this.userRepository = userRepository;
     }
 
-//    @PostMapping("/login")
-//    public String authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        loginRequest.getUsername(),
-//                        loginRequest.getPassword()
-//                )
-//        );
-//
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//
-//        // Generate JWT
-//        String token = jwtUtils.generateJwtToken(userDetails.getUsername());
-//
-//        // Save token in database
-//        Optional<User> optionalUser = userRepository.findByUsername(userDetails.getUsername());
-//        if (optionalUser.isPresent()) {
-//            User user = optionalUser.get();
-//            user.setLoginToken(token);
-//            user.setLastLoginAt(LocalDateTime.now()); // ✅ Save login time
-//            userRepository.save(user);
-//        } else {
-//            throw new RuntimeException("User not found");
-//        }
-//
-//        return token;
-//    }
-
-//    @PostMapping("/logout")
-//    public ResponseEntity<String> logout(@RequestHeader("Authorization") String authHeader) {
-//        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-//            return ResponseEntity.badRequest().body("Missing or invalid Authorization header");
-//        }
-//
-//        String token = authHeader.substring(7); // remove "Bearer "
-//
-//        // Find user by token
-//        Optional<User> optionalUser = userRepository.findByLoginToken(token);
-//        if (optionalUser.isPresent()) {
-//            User user = optionalUser.get();
-//            user.setLoginToken(null);             // ✅ clear token
-//            user.setLastLoginAt(null);            // optional: clear last login time
-//            userRepository.save(user);
-//            return ResponseEntity.ok("Logged out");
-//        } else {
-//            return ResponseEntity.status(401).body("Invalid token");
-//        }
-//    }
-
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
