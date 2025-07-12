@@ -20,7 +20,7 @@ public class Role {
     private String rolesStatus;
 
     @Column(name = "b_status", nullable = false)
-    private Boolean bStatus;
+    private Boolean bStatus = true;
 
     private String description;
 

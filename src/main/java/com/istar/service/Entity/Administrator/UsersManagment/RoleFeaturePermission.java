@@ -12,11 +12,21 @@ public class RoleFeaturePermission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+//    @ManyToOne
+//    @JoinColumn(name = "role_id", nullable = false)
+//    private Role role;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "feature_id", nullable = false)
+//    private Feature feature;
+
+    // 📌 Join to Role
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @ManyToOne
+    // 📌 Join to Feature
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feature_id", nullable = false)
     private Feature feature;
 
