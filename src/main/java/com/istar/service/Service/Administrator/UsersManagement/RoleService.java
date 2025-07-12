@@ -4,6 +4,7 @@ import com.istar.service.Entity.Administrator.UsersManagment.Role;
 import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermission;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleFeaturePermissionRepository;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleRepository;
+import com.istar.service.Service.Administrator.UsersManagement.RoleFeaturePermissionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,8 @@ public class RoleService {
 
     @Autowired
     private RoleRepository roleRepository;
-    private RoleFeaturePermissionRepository permissionRepository;
+    private RoleFeaturePermissionService roleFeaturePermissionService;
+    private RoleFeaturePermissionRepository roleFeaturePermissionRepository;
 
     public List<Role> getAllRoles() {
 
@@ -47,31 +49,43 @@ public class RoleService {
         return roleRepository.save(role);
     }
 
-    @Transactional
+//    @Transactional
+//    public Role createRoleWithPermissions(Role role, List<RoleFeaturePermission> permissions) {
+//        // Auto-generate role code if missing
+//        if (role.getRolesCode() == null || role.getRolesCode().isEmpty()) {
+//            String maxRolesrCode = roleRepository.findMaxUserCode();
+//            int nextCode = (maxRolesrCode != null) ? Integer.parseInt(maxRolesrCode) + 1 : 1;
+//            role.setRolesCode(String.format("%05d", nextCode));
+//        }
+//
+//        // Set default bStatus
+//        if (role.getBStatus() == null) {
+//            role.setBStatus(true);
+//        }
+//
+//        role.setCreatedAt(LocalDateTime.now());
+//        role.setUpdatedAt(LocalDateTime.now());
+//
+//        Role savedRole = roleRepository.save(role);
+//
+//        // Attach roleId to each permission and save
+//        for (RoleFeaturePermission permission : permissions) {
+//            permission.setRole(savedRole);
+//            permission.setCreatedAt(LocalDateTime.now());
+//            permission.setUpdatedAt(LocalDateTime.now());
+//            permissionRepository.save(permission);
+//        }
+//
+//        return savedRole;
+//    }
+
     public Role createRoleWithPermissions(Role role, List<RoleFeaturePermission> permissions) {
-        // Auto-generate role code if missing
-        if (role.getRolesCode() == null || role.getRolesCode().isEmpty()) {
-            String maxRolesrCode = roleRepository.findMaxUserCode();
-            int nextCode = (maxRolesrCode != null) ? Integer.parseInt(maxRolesrCode) + 1 : 1;
-            role.setRolesCode(String.format("%05d", nextCode));
-        }
+        Role savedRole = createRole(role);
 
-        // Set default bStatus
-        if (role.getBStatus() == null) {
-            role.setBStatus(true);
-        }
-
-        role.setCreatedAt(LocalDateTime.now());
-        role.setUpdatedAt(LocalDateTime.now());
-
-        Role savedRole = roleRepository.save(role);
-
-        // Attach roleId to each permission and save
         for (RoleFeaturePermission permission : permissions) {
             permission.setRole(savedRole);
-            permission.setCreatedAt(LocalDateTime.now());
-            permission.setUpdatedAt(LocalDateTime.now());
-            permissionRepository.save(permission);
+            permission.setId(savedRole.getId());
+            roleFeaturePermissionService.createPermission(permission); // <-- Use correct service
         }
 
         return savedRole;
