@@ -2,7 +2,6 @@ package com.istar.service.Controller.Administrator.UsersManagement;
 
 import com.istar.service.Entity.Administrator.UsersManagment.Role;
 import com.istar.service.Service.Administrator.UsersManagement.RoleService;
-import com.istar.service.dto.Administrator.UsersManagement.RoleWithPermissionsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -60,11 +59,5 @@ public class RoleController {
     public List<Role> searchRoles(@RequestParam(required = false) String keyword) {
         System.out.println(keyword);
         return roleService.searchRoles(keyword);
-    }
-
-    @PostMapping("/roles/with-permissions")
-    public ResponseEntity<Role> createRoleWithPermissions(@RequestBody RoleWithPermissionsDTO dto) {
-        Role savedRole = roleService.createRoleWithPermissions(dto.getRole(), dto.getPermissions());
-        return ResponseEntity.ok(savedRole);
     }
 }

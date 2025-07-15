@@ -1,20 +1,19 @@
 package com.istar.service.Controller.Administrator.UsersManagement;
 
 import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermission;
-import com.istar.service.Service.Administrator.UsersManagement.RoleFeaturePermissionServiceImpl;
+import com.istar.service.Service.Administrator.UsersManagement.RoleFeaturePermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/api/permissions")
 public class RoleFeaturePermissionController {
 
     @Autowired
-    private RoleFeaturePermissionServiceImpl permissionService;
+    private RoleFeaturePermissionService permissionService;
 
     @GetMapping
     public ResponseEntity<List<RoleFeaturePermission>> getAllPermissions() {
@@ -43,11 +42,4 @@ public class RoleFeaturePermissionController {
         permissionService.deletePermission(id);
         return ResponseEntity.ok().build();
     }
-
-    @PostMapping("/bulk")
-    public ResponseEntity<?> createPermissionsBulk(@RequestBody List<RoleFeaturePermission> permissions) {
-        permissionService.createPermissionsBulk(permissions);
-        return ResponseEntity.ok().build();
-    }
-
 }

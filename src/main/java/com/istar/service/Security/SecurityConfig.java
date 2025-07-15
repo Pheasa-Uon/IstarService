@@ -58,35 +58,18 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // auth login and logout
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/logout").permitAll()
-
-
-                        // users
                         .requestMatchers("/api/users/**").permitAll()
-                        .requestMatchers("/api/users/status").permitAll()
-                        .requestMatchers("/api/users/search").permitAll()
-
-                        // rest password of user
-                        .requestMatchers("/api/users/*/reset-password").permitAll()
-
-                        // roles and permissions
                         .requestMatchers("/api/roles/**").permitAll()
-                        .requestMatchers("/api/roles/status").permitAll()
-                        .requestMatchers("/api/roles/search/**").permitAll()
-                        .requestMatchers("/api/roles/permissions/**").permitAll()
-                        .requestMatchers("/api/permissions/**").permitAll()
-                        .requestMatchers("/api/permissions/role/**").permitAll()
-
-
-                        // features
-                        .requestMatchers("/api/roles/features/**").permitAll()
-                        .requestMatchers("/api/roles/features/treetable/**").permitAll()
                         .requestMatchers("/api/role-feature-permissions/**").permitAll()
+                        .requestMatchers("/api/users/status").permitAll()
+                        .requestMatchers("/api/roles/status").permitAll()
+                        .requestMatchers("/api/users/search").permitAll()
+                        .requestMatchers("/api/roles/search/**").permitAll()
 
-
+                        .requestMatchers("/api/users/*/reset-password").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
