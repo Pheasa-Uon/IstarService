@@ -7,27 +7,13 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "sys_role_feature_permissions")
 public class RoleFeaturePermission {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "role_id", nullable = false)
-//    private Role role;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "feature_id", nullable = false)
-//    private Feature feature;
-
-    // 📌 Join to Role
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
+    @ManyToOne @JoinColumn(name = "role_id")
     private Role role;
 
-    // 📌 Join to Feature
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "feature_id", nullable = false)
+    @ManyToOne @JoinColumn(name = "feature_id")
     private Feature feature;
 
     private Boolean isSearch = false;

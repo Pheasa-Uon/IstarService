@@ -1,24 +1,36 @@
 package com.istar.service.Service.Administrator.UsersManagement;
 
-import com.istar.service.Entity.Administrator.UsersManagment.Role;
-import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermission;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleFeaturePermissionRepository;
+import com.istar.service.dto.Administrator.UsersManagement.RoleDto;
+import com.istar.service.Entity.Administrator.UsersManagment.Feature;
+import com.istar.service.Entity.Administrator.UsersManagment.Role;
+import com.istar.service.Repository.Administrator.UsersManagement.FeatureRepository;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleRepository;
-import com.istar.service.Service.Administrator.UsersManagement.RoleFeaturePermissionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.Set;
 @Service
 public class RoleService {
 
+    private final RoleRepository roleRepository;
+    private final FeatureRepository featureRepository;
+
     @Autowired
-    private RoleRepository roleRepository;
+    public RoleService(RoleRepository roleRepository, FeatureRepository featureRepository) {
+        this.roleRepository = roleRepository;
+        this.featureRepository = featureRepository;
+    }
+
+    @Autowired
     private RoleFeaturePermissionService roleFeaturePermissionService;
+    @Autowired
     private RoleFeaturePermissionRepository roleFeaturePermissionRepository;
+
 
     public List<Role> getAllRoles() {
 
@@ -79,18 +91,22 @@ public class RoleService {
 //        return savedRole;
 //    }
 
-    public Role createRoleWithPermissions(Role role, List<RoleFeaturePermission> permissions) {
-        Role savedRole = createRole(role);
+    public Role createRoleWithPermissions(RoleDto roleDto) {
+        Role role = new Role();
+        role.setName(roleDto.getName());
+        role.setDescription(roleDto.getDescription());
+        role.setRolesCode(roleDto.getRolesCode());
+        role.setRolesStatus(roleDto.getRolesStatus());
+        role.setCreatedAt(LocalDateTime.now());
+        role.setBStatus(true);
 
-        for (RoleFeaturePermission permission : permissions) {
-            permission.setRole(savedRole);
-            permission.setId(savedRole.getId());
-            roleFeaturePermissionService.createPermission(permission); // <-- Use correct service
-        }
+        // Load features
+        List<Feature> selectedFeatures = featureRepository.findAllById(roleDto.getFeatureIds());
+        Set<Feature> featureSet = new HashSet<>(selectedFeatures);
+        role.setFeatures(featureSet); // assuming Role has a Set<Feature> features
 
-        return savedRole;
+        return roleRepository.save(role);
     }
-
 
     public Role updateRole(Long id, Role updatedRole) {
         return roleRepository.findById(id)
