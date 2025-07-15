@@ -58,18 +58,26 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // user auth login and logout
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/logout").permitAll()
+
+                        // user
                         .requestMatchers("/api/users/**").permitAll()
+                        .requestMatchers("/api/users/status").permitAll()
+                        .requestMatchers("/api/users/search").permitAll()
+                        .requestMatchers("/api/users/*/reset-password").permitAll()
+
+                        //role permission
+                        .requestMatchers("/api/roles/status").permitAll()
                         .requestMatchers("/api/roles/**").permitAll()
                         .requestMatchers("/api/role-feature-permissions/**").permitAll()
-                        .requestMatchers("/api/users/status").permitAll()
-                        .requestMatchers("/api/roles/status").permitAll()
-                        .requestMatchers("/api/users/search").permitAll()
                         .requestMatchers("/api/roles/search/**").permitAll()
 
-                        .requestMatchers("/api/users/*/reset-password").permitAll()
+                        .requestMatchers("/api/roles/permission/**").permitAll()
+                        .requestMatchers("/api/roles/feature/treetable/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

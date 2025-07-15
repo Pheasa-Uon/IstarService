@@ -34,7 +34,8 @@ public class RoleService {
             }
             role.setRolesCode(String.format("%05d", nextCode));
         }
-
+        role.setBStatus(true);
+        role.setRolesStatus(role.getRolesStatus());
         role.setCreatedAt(LocalDateTime.now());
         role.setUpdatedAt(LocalDateTime.now());
         return roleRepository.save(role);
