@@ -2,11 +2,7 @@ package com.istar.service.Entity.Administrator.UsersManagment;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "sys_features")
 public class Feature {
@@ -26,20 +22,6 @@ public class Feature {
     private String icon;
     private Boolean bStatus;
 
-    private Boolean isSearch;
-    private Boolean isAdd;
-    private Boolean isViewed;
-    private Boolean isEdit;
-    private Boolean isApprove;
-    private Boolean isReject;
-    private Boolean isDeleted;
-    private Boolean isSave;
-    private Boolean isClear;
-    private Boolean isCancel;
-    private Boolean isProcess;
-    private Boolean isImport;
-    private Boolean isExport;
-
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Feature parent;
@@ -48,7 +30,6 @@ public class Feature {
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     // --- Getters and Setters ---
-
     public Long getId() {
         return id;
     }
@@ -135,109 +116,5 @@ public class Feature {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Boolean getIsSearch() {
-        return isSearch;
-    }
-
-    public void setIsSearch(Boolean isSearch) {
-        this.isSearch = isSearch;
-    }
-
-    public Boolean getIsAdd() {
-        return isAdd;
-    }
-
-    public void setIsAdd(Boolean isAdd) {
-        this.isAdd = isAdd;
-    }
-
-    public Boolean getIsViewed() {
-        return isViewed;
-    }
-
-    public void setIsViewed(Boolean isViewed) {
-        this.isViewed = isViewed;
-    }
-
-    public Boolean getIsEdit() {
-        return isEdit;
-    }
-
-    public void setIsEdit(Boolean isEdit) {
-        this.isEdit = isEdit;
-    }
-
-    public Boolean getIsApprove() {
-        return isApprove;
-    }
-
-    public void setIsApprove(Boolean isApprove) {
-        this.isApprove = isApprove;
-    }
-
-    public Boolean getIsReject() {
-        return isReject;
-    }
-
-    public void setIsReject(Boolean isReject) {
-        this.isReject = isReject;
-    }
-
-    public Boolean getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
-    public Boolean getIsSave() {
-        return isSave;
-    }
-
-    public void setIsSave(Boolean isSave) {
-        this.isSave = isSave;
-    }
-
-    public Boolean getIsClear() {
-        return isClear;
-    }
-
-    public void setIsClear(Boolean isClear) {
-        this.isClear = isClear;
-    }
-
-    public Boolean getIsCancel() {
-        return isCancel;
-    }
-
-    public void setIsCancel(Boolean isCancel) {
-        this.isCancel = isCancel;
-    }
-
-    public Boolean getIsProcess() {
-        return isProcess;
-    }
-
-    public void setIsProcess(Boolean isProcess) {
-        this.isProcess = isProcess;
-    }
-
-    public Boolean getIsImport() {
-        return isImport;
-    }
-
-    public void setIsImport(Boolean isImport) {
-        this.isImport = isImport;
-    }
-
-    public Boolean getIsExport() {
-        return isExport;
-    }
-
-    public void setIsExport(Boolean isExport) {
-        this.isExport = isExport;
     }
 }
