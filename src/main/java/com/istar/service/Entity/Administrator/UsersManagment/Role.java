@@ -1,8 +1,10 @@
 package com.istar.service.Entity.Administrator.UsersManagment;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // ✅ Ignore proxy fields
 @Entity
 @Table(name = "sys_roles")
 public class Role {

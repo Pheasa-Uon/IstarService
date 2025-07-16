@@ -49,7 +49,9 @@ public class UserRoleService {
     public void removeRoleFromUser(Long userId, Long roleId) {
         UserRole userRole = userRoleRepository.findByUserIdAndRoleId(userId, roleId)
                 .orElseThrow(() -> new RuntimeException("User role mapping not found"));
-        userRoleRepository.delete(userRole);
+
+        userRole.setbStatus(false);
+        userRoleRepository.save(userRole);
     }
 
     public List<Role> getUserRoles(Long userId) {
