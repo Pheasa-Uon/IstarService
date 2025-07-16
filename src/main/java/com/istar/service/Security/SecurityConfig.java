@@ -68,9 +68,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/status").permitAll()
                         .requestMatchers("/api/users/search").permitAll()
                         .requestMatchers("/api/users/*/reset-password").permitAll()
-                        .requestMatchers("/api/user-roles/**").permitAll()
-                        .requestMatchers("/api/user-roles/assign/**").permitAll()
-                        .requestMatchers("/api/user-roles/remove/**").permitAll()
+                        .requestMatchers("/api/userroles/**").permitAll()
+                        .requestMatchers("/api/userroles/assign/**").permitAll()
+                        .requestMatchers("/api/userroles/remove/**").permitAll()
 
                         //role permission
                         .requestMatchers("/api/roles/status").permitAll()
