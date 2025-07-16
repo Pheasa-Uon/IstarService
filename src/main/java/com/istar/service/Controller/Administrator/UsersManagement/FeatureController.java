@@ -2,6 +2,7 @@ package com.istar.service.Controller.Administrator.UsersManagement;
 
 import com.istar.service.Entity.Administrator.UsersManagment.Feature;
 import com.istar.service.Service.Administrator.UsersManagement.FeatureService;
+import com.istar.service.dto.Administrator.UsersManagement.FeatureTreeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,10 @@ public class FeatureController {
     public ResponseEntity<?> deleteFeature(@PathVariable Long id) {
         featureService.deleteFeature(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/treetable")
+    public ResponseEntity<List<FeatureTreeDTO>> getTreeTable() {
+        return ResponseEntity.ok(featureService.getFeatureTree());
     }
 }

@@ -2,6 +2,7 @@ package com.istar.service.Controller.Administrator.UsersManagement;
 
 import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermission;
 import com.istar.service.Service.Administrator.UsersManagement.RoleFeaturePermissionService;
+import com.istar.service.dto.Administrator.UsersManagement.RoleFeaturePermissionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,12 @@ public class RoleFeaturePermissionController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePermission(@PathVariable Long id) {
         permissionService.deletePermission(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/bulk")
+    public ResponseEntity<?> savePermissionsBulk(@RequestBody List<RoleFeaturePermissionDTO> dtos) {
+        permissionService.savePermissionsBulk(dtos);
         return ResponseEntity.ok().build();
     }
 }

@@ -1,7 +1,11 @@
 package com.istar.service.Entity.Administrator.UsersManagment;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "sys_features")
@@ -12,11 +16,8 @@ public class Feature {
     private Long id;
 
     private String name;
-
-    @Column(unique = true)
     private String code;
-
-    private String type; // 'App' or 'Rpt'
+    private String type;
     private Integer order;
     private String routePath;
     private String icon;
@@ -24,12 +25,17 @@ public class Feature {
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
+    @JsonBackReference
     private Feature parent;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Feature> children = new ArrayList<>();
 
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    // --- Getters and Setters ---
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -100,6 +106,14 @@ public class Feature {
 
     public void setParent(Feature parent) {
         this.parent = parent;
+    }
+
+    public List<Feature> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Feature> children) {
+        this.children = children;
     }
 
     public LocalDateTime getCreatedAt() {

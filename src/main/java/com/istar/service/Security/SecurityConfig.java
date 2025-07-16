@@ -68,15 +68,17 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/status").permitAll()
                         .requestMatchers("/api/users/search").permitAll()
                         .requestMatchers("/api/users/*/reset-password").permitAll()
+                        .requestMatchers("/api/user-roles/**").permitAll()
+                        .requestMatchers("/api/user-roles/assign/**").permitAll()
+                        .requestMatchers("/api/user-roles/remove/**").permitAll()
 
                         //role permission
                         .requestMatchers("/api/roles/status").permitAll()
                         .requestMatchers("/api/roles/**").permitAll()
-                        .requestMatchers("/api/role-feature-permissions/**").permitAll()
                         .requestMatchers("/api/roles/search/**").permitAll()
 
-                        .requestMatchers("/api/roles/permission/**").permitAll()
-                        .requestMatchers("/api/roles/feature/treetable/**").permitAll()
+                        .requestMatchers("/api/permissions/**").permitAll()
+                        .requestMatchers("/api/features/treetable/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
