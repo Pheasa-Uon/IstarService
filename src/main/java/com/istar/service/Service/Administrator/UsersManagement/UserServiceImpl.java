@@ -1,14 +1,27 @@
 package com.istar.service.Service.Administrator.UsersManagement;
 
+import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermission;
 import com.istar.service.Entity.Administrator.UsersManagment.User;
+import com.istar.service.dto.Administrator.UsersManagement.FeaturePermissionDTO;
+import com.istar.service.Repository.Administrator.UsersManagement.RoleFeaturePermissionRepository;
 import com.istar.service.Repository.Administrator.UsersManagement.UserRepository;
+import com.istar.service.Security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -109,6 +122,60 @@ public class UserServiceImpl implements UserService {
                     .toList();
         }
         return userRepository.searchActiveUsersByKeyword(keyword);
+    }
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    // Injected repository
+    @Autowired
+    private RoleFeaturePermissionRepository roleFeaturePermissionRepository;
+
+    // New method for login + return JWT + role permissions
+    public ResponseEntity<?> authenticateUser(String username, String password) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password)
+            );
+
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+            String token = jwtUtils.generateJwtToken(userDetails.getUsername());
+
+            User user = userRepository.findByUsername(userDetails.getUsername())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            user.setLoginToken(token);
+            user.setLastLoginAt(LocalDateTime.now());
+            userRepository.save(user);
+
+            // Fetch role feature permissions
+            List<RoleFeaturePermission> permissions = roleFeaturePermissionRepository
+                    .findByRoleId(user.getRole().getId());
+
+            List<FeaturePermissionDTO> permissionDTOs = permissions.stream()
+                    .map(rfp -> new FeaturePermissionDTO(
+                            rfp.getFeature().getCode(),
+                            rfp.getIsSearch(),
+                            rfp.getIsAdd(),
+                            rfp.getIsViewed(),
+                            rfp.getIsEdit(),
+                            rfp.getIsDeleted()))
+                    .collect(Collectors.toList());
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+            response.put("username", user.getUsername());
+            response.put("role", user.getRole().getName());
+            response.put("permissions", permissionDTOs);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+        }
     }
 
 

@@ -18,7 +18,10 @@ public class Feature {
     private String name;
     private String code;
     private String type;
-    private Integer order;
+
+    @Column(name = "display_order") // change here
+    private Integer displayOrder;   // change here
+
     private String routePath;
     private String icon;
     private Boolean bStatus;
@@ -68,12 +71,12 @@ public class Feature {
         this.type = type;
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getdisplayOrder() {
+        return displayOrder;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setdisplayOrder(Integer order) {
+        this.displayOrder = order;
     }
 
     public String getRoutePath() {

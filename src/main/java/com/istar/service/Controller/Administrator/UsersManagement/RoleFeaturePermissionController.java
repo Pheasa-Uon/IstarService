@@ -1,8 +1,10 @@
 package com.istar.service.Controller.Administrator.UsersManagement;
 
 import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermission;
+import com.istar.service.Entity.Administrator.UsersManagment.Role;
+import com.istar.service.Repository.Administrator.UsersManagement.RoleRepository;
 import com.istar.service.Service.Administrator.UsersManagement.RoleFeaturePermissionService;
-import com.istar.service.dto.Administrator.UsersManagement.RoleFeaturePermissionDTO;
+import com.istar.service.dto.Administrator.UsersManagement.FeaturePermissionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +18,22 @@ public class RoleFeaturePermissionController {
     @Autowired
     private RoleFeaturePermissionService permissionService;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @GetMapping
     public ResponseEntity<List<RoleFeaturePermission>> getAllPermissions() {
         return ResponseEntity.ok(permissionService.getAllPermissions());
     }
 
     @GetMapping("/role/{roleId}")
-    public ResponseEntity<List<RoleFeaturePermission>> getPermissionsByRole(@PathVariable Long roleId) {
-        return ResponseEntity.ok(permissionService.getPermissionsByRole(roleId));
+    public ResponseEntity<List<FeaturePermissionDTO>> getPermissionsByRole(@PathVariable Long roleId) {
+        Role role = roleRepository.findById(roleId).orElse(null);
+        if (role == null) {
+            return ResponseEntity.notFound().build();
+        }
+        List<FeaturePermissionDTO> permissions = permissionService.getPermissionsByRole(role);
+        return ResponseEntity.ok(permissions);
     }
 
     @PostMapping
@@ -45,7 +55,7 @@ public class RoleFeaturePermissionController {
     }
 
     @PostMapping("/bulk")
-    public ResponseEntity<?> savePermissionsBulk(@RequestBody List<RoleFeaturePermissionDTO> dtos) {
+    public ResponseEntity<?> savePermissionsBulk(@RequestBody List<FeaturePermissionDTO> dtos) {
         permissionService.savePermissionsBulk(dtos);
         return ResponseEntity.ok().build();
     }

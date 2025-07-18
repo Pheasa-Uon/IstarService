@@ -6,13 +6,14 @@ import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermissi
 import com.istar.service.Repository.Administrator.UsersManagement.FeatureRepository;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleFeaturePermissionRepository;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleRepository;
-import com.istar.service.dto.Administrator.UsersManagement.RoleFeaturePermissionDTO;
+import com.istar.service.dto.Administrator.UsersManagement.FeaturePermissionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleFeaturePermissionService {
@@ -26,12 +27,40 @@ public class RoleFeaturePermissionService {
     @Autowired
     private FeatureRepository featureRepository;
 
+    @Autowired
+    private RoleFeaturePermissionRepository roleFeaturePermissionRepository;
+
     public List<RoleFeaturePermission> getAllPermissions() {
         return permissionRepository.findAll();
     }
 
-    public List<RoleFeaturePermission> getPermissionsByRole(Long roleId) {
-        return permissionRepository.findByRoleId(roleId);
+//    public List<RoleFeaturePermission> getPermissionsByRole(Long roleId) {
+//        return permissionRepository.findByRoleId(roleId);
+//    }
+
+    public List<FeaturePermissionDTO> getPermissionsByRole(Role role) {
+        List<RoleFeaturePermission> perms = roleFeaturePermissionRepository.findByRole(role);
+
+        return perms.stream().map(p -> {
+            FeaturePermissionDTO dto = new FeaturePermissionDTO();
+            dto.setRoleId(p.getRole().getId());
+            dto.setFeatureId(p.getFeature().getId());
+            dto.setIsSearch(p.getIsSearch());
+            dto.setIsAdd(p.getIsAdd());
+            dto.setIsViewed(p.getIsViewed());
+            dto.setIsEdit(p.getIsEdit());
+            dto.setIsApprove(p.getIsApprove());
+            dto.setIsReject(p.getIsReject());
+            dto.setIsDeleted(p.getIsDeleted());
+            dto.setIsSave(p.getIsSave());
+            dto.setIsClear(p.getIsClear());
+            dto.setIsCancel(p.getIsCancel());
+            dto.setIsProcess(p.getIsProcess());
+            dto.setIsImport(p.getIsImport());
+            dto.setIsExport(p.getIsExport());
+            dto.setBStatus(p.getBStatus());
+            return dto;
+        }).collect(Collectors.toList());
     }
 
     public RoleFeaturePermission createPermission(RoleFeaturePermission permission) {
@@ -55,8 +84,8 @@ public class RoleFeaturePermissionService {
     }
 
     // NEW method to bulk save/update permissions
-    public void savePermissionsBulk(List<RoleFeaturePermissionDTO> dtos) {
-        for (RoleFeaturePermissionDTO dto : dtos) {
+    public void savePermissionsBulk(List<FeaturePermissionDTO> dtos) {
+        for (FeaturePermissionDTO dto : dtos) {
             if (dto.getRoleId() == null || dto.getFeatureId() == null) {
                 throw new IllegalArgumentException("Role ID and Feature ID must not be null");
             }

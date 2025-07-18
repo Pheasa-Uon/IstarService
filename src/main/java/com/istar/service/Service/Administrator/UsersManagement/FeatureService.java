@@ -32,7 +32,7 @@ public class FeatureService {
         dto.setRoutePath(feature.getRoutePath());
         dto.setIcon(feature.getIcon());
         dto.setBStatus(feature.getBStatus());
-        dto.setOrder(feature.getOrder());
+        dto.setOrder(feature.getdisplayOrder());
 
         if (feature.getChildren() != null && !feature.getChildren().isEmpty()) {
             List<FeatureTreeDTO> childDTOs = feature.getChildren().stream()
@@ -61,7 +61,7 @@ public class FeatureService {
             feature.setName(updated.getName());
             feature.setCode(updated.getCode());
             feature.setType(updated.getType());
-            feature.setOrder(updated.getOrder());
+            feature.setdisplayOrder(updated.getdisplayOrder());
             feature.setRoutePath(updated.getRoutePath());
             feature.setIcon(updated.getIcon());
             feature.setParent(updated.getParent());
