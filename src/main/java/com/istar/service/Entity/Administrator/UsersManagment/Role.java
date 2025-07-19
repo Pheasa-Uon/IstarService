@@ -2,7 +2,12 @@ package com.istar.service.Entity.Administrator.UsersManagment;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // ✅ Ignore proxy fields
 @Entity
@@ -31,6 +36,11 @@ public class Role {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // This example uses role name as authority
+        return Collections.singletonList(new SimpleGrantedAuthority(this.name));
+    }
 
     // --- Getters and Setters ---
 
