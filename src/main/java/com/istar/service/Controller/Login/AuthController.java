@@ -105,7 +105,7 @@ public class AuthController {
         try {
             // ✅ Decode username from token
             String username = jwtUtils.getUserNameFromJwtToken(token);
-
+            System.out.println("User Log Out by: " + username);
             // ✅ Check user by username
             Optional<User> optionalUser = userRepository.findByUsername(username);
 
