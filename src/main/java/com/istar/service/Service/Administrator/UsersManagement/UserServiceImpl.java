@@ -2,6 +2,7 @@ package com.istar.service.Service.Administrator.UsersManagement;
 
 import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermission;
 import com.istar.service.Entity.Administrator.UsersManagment.User;
+import com.istar.service.Security.PasswordService;
 import com.istar.service.dto.Administrator.UsersManagement.FeaturePermissionDTO;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleFeaturePermissionRepository;
 import com.istar.service.Repository.Administrator.UsersManagement.UserRepository;
@@ -28,25 +29,41 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordService passwordService;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordService passwordService) {
         this.userRepository = userRepository;
-        this.passwordEncoder = new BCryptPasswordEncoder();
+        this.passwordService = passwordService;
     }
+
+//    @Override
+//    public User saveUser(User user) {
+//        if (user.getUserCode() == null || user.getUserCode().isEmpty()) {
+//            String maxUserCode = userRepository.findMaxUserCode();
+//            int nextCode = 1;
+//            if (maxUserCode != null) {
+//                nextCode = Integer.parseInt(maxUserCode) + 1;
+//            }
+//            user.setUserCode(String.format("%05d", nextCode));
+//        }
+//
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        return userRepository.save(user);
+//    }
 
     @Override
     public User saveUser(User user) {
         if (user.getUserCode() == null || user.getUserCode().isEmpty()) {
             String maxUserCode = userRepository.findMaxUserCode();
-            int nextCode = 1;
-            if (maxUserCode != null) {
-                nextCode = Integer.parseInt(maxUserCode) + 1;
-            }
+            int nextCode = (maxUserCode != null) ? Integer.parseInt(maxUserCode) + 1 : 1;
             user.setUserCode(String.format("%05d", nextCode));
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // Encode password only if it's raw
+        if (!user.getPassword().startsWith("$2a$")) {
+            user.setPassword(passwordService.encode(user.getPassword()));
+        }
+
         return userRepository.save(user);
     }
 
@@ -70,7 +87,8 @@ public class UserServiceImpl implements UserService {
                     && !existingUser.getPassword().equals("$2a$10$")) {
                 user.setPassword(existingUser.getPassword());
             }else {
-                user.setPassword(passwordEncoder.encode(existingUser.getPassword()));
+                //user.setPassword(passwordEncoder.encode(existingUser.getPassword()));
+                user.setPassword(passwordService.encode(existingUser.getPassword()));
             }
 
             user.setUpdatedAt(LocalDateTime.now());
@@ -101,7 +119,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User resetPassword(Long id) {
         User user = getUserById(id);
-        user.setPassword(passwordEncoder.encode("123456")); // default password
+        user.setPassword(passwordService.encode("123456")); // default password
         return userRepository.save(user);
     }
 
