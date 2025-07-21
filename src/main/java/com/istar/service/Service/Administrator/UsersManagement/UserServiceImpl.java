@@ -3,7 +3,7 @@ package com.istar.service.Service.Administrator.UsersManagement;
 import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermission;
 import com.istar.service.Entity.Administrator.UsersManagment.User;
 import com.istar.service.Security.PasswordService;
-import com.istar.service.dto.Administrator.UsersManagement.FeaturePermissionDTO;
+import com.istar.service.DTO.Administrator.UsersManagement.FeaturePermissionDTO;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleFeaturePermissionRepository;
 import com.istar.service.Repository.Administrator.UsersManagement.UserRepository;
 import com.istar.service.Security.JwtUtils;

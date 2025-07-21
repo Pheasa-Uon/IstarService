@@ -4,7 +4,7 @@ import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermissi
 import com.istar.service.Entity.Administrator.UsersManagment.Role;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleRepository;
 import com.istar.service.Service.Administrator.UsersManagement.RoleFeaturePermissionService;
-import com.istar.service.dto.Administrator.UsersManagement.FeaturePermissionDTO;
+import com.istar.service.DTO.Administrator.UsersManagement.FeaturePermissionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

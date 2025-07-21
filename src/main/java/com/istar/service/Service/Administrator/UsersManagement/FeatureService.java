@@ -2,7 +2,7 @@ package com.istar.service.Service.Administrator.UsersManagement;
 
 import com.istar.service.Entity.Administrator.UsersManagment.Feature;
 import com.istar.service.Repository.Administrator.UsersManagement.FeatureRepository;
-import com.istar.service.dto.Administrator.UsersManagement.FeatureTreeDTO;
+import com.istar.service.DTO.Administrator.UsersManagement.FeatureTreeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@ package com.istar.service.Controller.Administrator.UsersManagement;
 
 import com.istar.service.Entity.Administrator.UsersManagment.Feature;
 import com.istar.service.Service.Administrator.UsersManagement.FeatureService;
-import com.istar.service.dto.Administrator.UsersManagement.FeatureTreeDTO;
+import com.istar.service.DTO.Administrator.UsersManagement.FeatureTreeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
