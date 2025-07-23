@@ -37,8 +37,9 @@ public class UserRoleController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<List<Role>> getUserRoles(@PathVariable Long userId) {
-        List<Role> roles = userRoleService.getUserRoles(userId);
-        return ResponseEntity.ok(roles);
+    public ResponseEntity<List<UserRole>> getUserRoles(@PathVariable Long userId) {
+        List<UserRole> userRoles = userRoleService.getUserRoles(userId);
+        return ResponseEntity.ok(userRoles);
     }
+
 }
