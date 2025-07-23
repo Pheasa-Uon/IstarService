@@ -24,15 +24,15 @@ public class RoleFeaturePermission {
     private Boolean isAdd = false;
     private Boolean isViewed = false;
     private Boolean isEdit = false;
-    private Boolean isApprove = false;
-    private Boolean isReject = false;
+//    private Boolean isApprove = false;
+//    private Boolean isReject = false;
     private Boolean isDeleted = false;
     private Boolean isSave = false;
     private Boolean isClear = false;
     private Boolean isCancel = false;
-    private Boolean isProcess = false;
-    private Boolean isImport = false;
-    private Boolean isExport = false;
+//    private Boolean isProcess = false;
+//    private Boolean isImport = false;
+//    private Boolean isExport = false;
     private Boolean bStatus = true;
 
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -96,21 +96,21 @@ public class RoleFeaturePermission {
         this.isEdit = isEdit;
     }
 
-    public Boolean getIsApprove() {
-        return isApprove;
-    }
-
-    public void setIsApprove(Boolean isApprove) {
-        this.isApprove = isApprove;
-    }
-
-    public Boolean getIsReject() {
-        return isReject;
-    }
-
-    public void setIsReject(Boolean isReject) {
-        this.isReject = isReject;
-    }
+//    public Boolean getIsApprove() {
+//        return isApprove;
+//    }
+//
+//    public void setIsApprove(Boolean isApprove) {
+//        this.isApprove = isApprove;
+//    }
+//
+//    public Boolean getIsReject() {
+//        return isReject;
+//    }
+//
+//    public void setIsReject(Boolean isReject) {
+//        this.isReject = isReject;
+//    }
 
     public Boolean getIsDeleted() {
         return isDeleted;
@@ -144,29 +144,29 @@ public class RoleFeaturePermission {
         this.isCancel = isCancel;
     }
 
-    public Boolean getIsProcess() {
-        return isProcess;
-    }
-
-    public void setIsProcess(Boolean isProcess) {
-        this.isProcess = isProcess;
-    }
-
-    public Boolean getIsImport() {
-        return isImport;
-    }
-
-    public void setIsImport(Boolean isImport) {
-        this.isImport = isImport;
-    }
-
-    public Boolean getIsExport() {
-        return isExport;
-    }
-
-    public void setIsExport(Boolean isExport) {
-        this.isExport = isExport;
-    }
+//    public Boolean getIsProcess() {
+//        return isProcess;
+//    }
+//
+//    public void setIsProcess(Boolean isProcess) {
+//        this.isProcess = isProcess;
+//    }
+//
+//    public Boolean getIsImport() {
+//        return isImport;
+//    }
+//
+//    public void setIsImport(Boolean isImport) {
+//        this.isImport = isImport;
+//    }
+//
+//    public Boolean getIsExport() {
+//        return isExport;
+//    }
+//
+//    public void setIsExport(Boolean isExport) {
+//        this.isExport = isExport;
+//    }
 
     public Boolean getBStatus() {
         return bStatus;

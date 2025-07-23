@@ -49,15 +49,15 @@ public class RoleFeaturePermissionService {
             dto.setIsAdd(p.getIsAdd());
             dto.setIsViewed(p.getIsViewed());
             dto.setIsEdit(p.getIsEdit());
-            dto.setIsApprove(p.getIsApprove());
-            dto.setIsReject(p.getIsReject());
+            //dto.setIsApprove(p.getIsApprove());
+            //dto.setIsReject(p.getIsReject());
             dto.setIsDeleted(p.getIsDeleted());
             dto.setIsSave(p.getIsSave());
             dto.setIsClear(p.getIsClear());
             dto.setIsCancel(p.getIsCancel());
-            dto.setIsProcess(p.getIsProcess());
-            dto.setIsImport(p.getIsImport());
-            dto.setIsExport(p.getIsExport());
+            //dto.setIsProcess(p.getIsProcess());
+            //dto.setIsImport(p.getIsImport());
+            //dto.setIsExport(p.getIsExport());
             dto.setBStatus(p.getBStatus());
             return dto;
         }).collect(Collectors.toList());
@@ -105,15 +105,15 @@ public class RoleFeaturePermissionService {
             permission.setIsAdd(dto.getIsAdd());
             permission.setIsViewed(dto.getIsViewed());
             permission.setIsEdit(dto.getIsEdit());
-            permission.setIsApprove(dto.getIsApprove());
-            permission.setIsReject(dto.getIsReject());
+            //permission.setIsApprove(dto.getIsApprove());
+            //permission.setIsReject(dto.getIsReject());
             permission.setIsDeleted(dto.getIsDeleted());
             permission.setIsSave(dto.getIsSave());
             permission.setIsClear(dto.getIsClear());
             permission.setIsCancel(dto.getIsCancel());
-            permission.setIsProcess(dto.getIsProcess());
-            permission.setIsImport(dto.getIsImport());
-            permission.setIsExport(dto.getIsExport());
+            //permission.setIsProcess(dto.getIsProcess());
+            //permission.setIsImport(dto.getIsImport());
+            //permission.setIsExport(dto.getIsExport());
             permission.setBStatus(true);
 
             if (permission.getId() == null) {
@@ -131,15 +131,15 @@ public class RoleFeaturePermissionService {
         target.setIsAdd(source.getIsAdd());
         target.setIsViewed(source.getIsViewed());
         target.setIsEdit(source.getIsEdit());
-        target.setIsApprove(source.getIsApprove());
-        target.setIsReject(source.getIsReject());
+        //target.setIsApprove(source.getIsApprove());
+        //target.setIsReject(source.getIsReject());
         target.setIsDeleted(source.getIsDeleted());
         target.setIsSave(source.getIsSave());
         target.setIsClear(source.getIsClear());
         target.setIsCancel(source.getIsCancel());
-        target.setIsProcess(source.getIsProcess());
-        target.setIsImport(source.getIsImport());
-        target.setIsExport(source.getIsExport());
+        //target.setIsProcess(source.getIsProcess());
+        //target.setIsImport(source.getIsImport());
+        //target.setIsExport(source.getIsExport());
         target.setBStatus(source.getBStatus());
     }
 }
