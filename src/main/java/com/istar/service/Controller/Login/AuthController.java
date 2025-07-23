@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*") // or configure via CorsConfig
+@CrossOrigin(origins = "${app.cors.allowed-origins}") // or configure via CorsConfig
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
