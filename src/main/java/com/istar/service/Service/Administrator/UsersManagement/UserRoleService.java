@@ -54,7 +54,9 @@ public class UserRoleService {
         userRoleRepository.save(userRole);
     }
 
-    public List<UserRole> getUserRoles(Long userId) {
-        return userRoleRepository.findByUserId(userId);
+    public List<Role> getUserRoles(Long userId) {
+        return userRoleRepository.findByUserId(userId).stream()
+                .map(UserRole::getRole)
+                .collect(Collectors.toList());
     }
 }
