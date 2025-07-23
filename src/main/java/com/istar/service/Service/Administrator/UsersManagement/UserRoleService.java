@@ -26,34 +26,29 @@ public class UserRoleService {
     private UserRoleRepository userRoleRepository;
 
     public UserRole assignRoleToUser(Long userId, Long roleId) {
-
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
         Role role = roleRepository.findById(roleId)
-                .orElseThrow(() -> new RuntimeException("Role not found"));
+                .orElseThrow(() -> new RuntimeException("Role not found with ID: " + roleId));
 
-        // Check if role already assigned
-        UserRole existing = userRoleRepository.findByUserIdAndRoleId(userId, roleId).orElse(null);
+        Optional<UserRole> existingUserRole = userRoleRepository.findByUserIdAndRoleId(userId, roleId);
 
-        if (existing != null) {
-            // Toggle bStatus (true <-> false)
-            existing.setbStatus(!Boolean.TRUE.equals(existing.getbStatus()));
-            existing.setUpdatedAt(LocalDateTime.now());
-            return userRoleRepository.save(existing);
+        if (existingUserRole.isPresent()) {
+            UserRole userRole = existingUserRole.get();
+            if (!Boolean.TRUE.equals(userRole.getbStatus())) {
+                userRole.setbStatus(true);
+                userRole.setUpdatedAt(LocalDateTime.now());
+                return userRoleRepository.save(userRole);
+            }
+            return userRole; // already active
+        } else {
+            UserRole userRole = new UserRole();
+            userRole.setUser(user);
+            userRole.setRole(role);
+            userRole.setbStatus(true);
+            return userRoleRepository.save(userRole);
         }
-
-        // Assign new role
-        UserRole userRole = new UserRole();
-        userRole.setUser(user);
-        userRole.setRole(role);
-        userRole.setbStatus(true); // New roles are active by default
-        userRole.setCreatedAt(LocalDateTime.now());
-        userRole.setUpdatedAt(LocalDateTime.now());
-
-        return userRoleRepository.save(userRole);
     }
-
 
     public void removeRoleFromUser(Long userId, Long roleId) {
         UserRole userRole = userRoleRepository.findByUserIdAndRoleId(userId, roleId)
