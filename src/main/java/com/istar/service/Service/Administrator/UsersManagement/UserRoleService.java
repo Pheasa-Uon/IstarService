@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class UserRoleService {
@@ -26,32 +26,38 @@ public class UserRoleService {
     private UserRoleRepository userRoleRepository;
 
     public UserRole assignRoleToUser(Long userId, Long roleId) {
-        if (userRoleRepository.existsByUserIdAndRoleId(userId, roleId)) {
-            throw new RuntimeException("User already has this role");
-        }
-
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
         Role role = roleRepository.findById(roleId)
-                .orElseThrow(() -> new RuntimeException("Role not found"));
+                .orElseThrow(() -> new RuntimeException("Role not found with ID: " + roleId));
 
-        UserRole userRole = new UserRole();
-        userRole.setUser(user);
-        userRole.setRole(role);
-        userRole.setCreatedAt(LocalDateTime.now());
-        userRole.setUpdatedAt(LocalDateTime.now());
-        userRole.setbStatus(true);
+        Optional<UserRole> existingUserRole = userRoleRepository.findByUserIdAndRoleId(userId, roleId);
 
-        return userRoleRepository.save(userRole);
+        if (existingUserRole.isPresent()) {
+            UserRole userRole = existingUserRole.get();
+            if (!Boolean.TRUE.equals(userRole.getbStatus())) {
+                userRole.setbStatus(true);
+                userRole.setUpdatedAt(LocalDateTime.now());
+                return userRoleRepository.save(userRole);
+            }
+            return userRole; // already active
+        } else {
+            UserRole userRole = new UserRole();
+            userRole.setUser(user);
+            userRole.setRole(role);
+            userRole.setbStatus(true);
+            return userRoleRepository.save(userRole);
+        }
     }
 
     public void removeRoleFromUser(Long userId, Long roleId) {
         UserRole userRole = userRoleRepository.findByUserIdAndRoleId(userId, roleId)
-                .orElseThrow(() -> new RuntimeException("User role mapping not found"));
-
-        userRole.setbStatus(false);
-        userRoleRepository.save(userRole);
+                .orElseThrow(() -> new RuntimeException("UserRole not found for userId " + userId + " and roleId " + roleId));
+        if (Boolean.TRUE.equals(userRole.getbStatus())) {
+            userRole.setbStatus(false);
+            userRole.setUpdatedAt(LocalDateTime.now());
+            userRoleRepository.save(userRole);
+        }
     }
 
     public List<UserRole> getUserRoles(Long userId) {
