@@ -35,9 +35,35 @@ public class AuthController {
         this.userRepository = userRepository;
     }
 
+//    @PostMapping("/login")
+//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        loginRequest.getUsername(),
+//                        loginRequest.getPassword()
+//                )
+//        );
+//        System.out.println("User logged in: " + loginRequest.getUsername());
+//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//
+//        String token = jwtUtils.generateJwtToken(userDetails.getUsername());
+//
+//        Optional<User> optionalUser = userRepository.findByUsername(userDetails.getUsername());
+//        if (optionalUser.isPresent()) {
+//            User user = optionalUser.get();
+//            user.setLoginToken(token);
+//            user.setLastLoginAt(LocalDateTime.now());
+//            userRepository.save(user);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
+//        }
+//
+//        return ResponseEntity.ok(Collections.singletonMap("token", token));
+//    }
+
     // ✅ LOGIN
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
