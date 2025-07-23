@@ -1,6 +1,5 @@
 package com.istar.service.Security;
 
-import com.istar.service.Repository.Administrator.UsersManagement.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,24 +23,18 @@ public class SecurityConfig {
 
     private final JwtUtils jwtUtils;
     private final CustomUserDetailsService userDetailsService;
-    private final UserRepository userRepository;  // Add this
 
     @Value("${app.cors.allowed-origins}")
     private String allowedOrigins;
 
-
-    public SecurityConfig(JwtUtils jwtUtils,
-                          CustomUserDetailsService userDetailsService,
-                          UserRepository userRepository) {
+    public SecurityConfig(JwtUtils jwtUtils, CustomUserDetailsService userDetailsService) {
         this.jwtUtils = jwtUtils;
         this.userDetailsService = userDetailsService;
-        this.userRepository = userRepository;
     }
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        // Pass UserRepository here as well
-        return new JwtAuthenticationFilter(jwtUtils, userDetailsService, userRepository);
+        return new JwtAuthenticationFilter(jwtUtils, userDetailsService);
     }
 
 //    @Bean
