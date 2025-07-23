@@ -2,6 +2,7 @@ package com.istar.service.Entity.Administrator.UsersManagment;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 
 @Data
@@ -23,16 +24,11 @@ public class UserRole {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @Column(name = "b_status")
     private Boolean bStatus = true;
 
-    @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "updated_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
-
-    // Optionally include setters if Lombok @Data is not preferred
 
     public Boolean getbStatus() {
         return bStatus;
@@ -41,6 +37,4 @@ public class UserRole {
     public void setbStatus(Boolean bStatus) {
         this.bStatus = bStatus;
     }
-
-
 }
