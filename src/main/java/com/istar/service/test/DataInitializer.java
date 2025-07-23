@@ -1,4 +1,4 @@
-//package com.istar.service.test;
+//package com.istar.Service.test;
 //
 //import com.istar.service.Entity.Administrator.UsersManagment.User;
 //import com.istar.service.Repository.Administrator.UsersManagement.UserRepository;
@@ -11,18 +11,18 @@
 //public class DataInitializer {
 //
 //    public static void main(String[] args) {
-//        String hash = new BCryptPasswordEncoder().encode("123456");
+//        String hash = new BCryptPasswordEncoder().encode("12345678");
 //        System.out.println(hash);
 //    }
 //
 //    @Bean
 //    public CommandLineRunner initAdmin(UserRepository userRepository) {
 //        return args -> {
-//            if (userRepository.findByUsername("acc") == null) {
+//            if (userRepository.findByUsername("administrator") == null) {
 //                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //                User admin = new User();
-//                admin.setUsername("acc");
-//                admin.setPassword(encoder.encode("123456"));
+//                admin.setUsername("administrator");
+//                admin.setPassword(encoder.encode("12345678"));
 //                //admin.setStatus("ACTIVE"); // optional, depends on your Entity
 //                //admin.setRole("ADMIN");    // optional
 //                userRepository.save(admin);
