@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "${app.cors.allowed-origins}") // or configure via CorsConfig
+@CrossOrigin(origins = "*") // or configure via CorsConfig
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -35,61 +35,30 @@ public class AuthController {
         this.userRepository = userRepository;
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        loginRequest.getUsername(),
-//                        loginRequest.getPassword()
-//                )
-//        );
-//        System.out.println("User logged in: " + loginRequest.getUsername());
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//
-//        String token = jwtUtils.generateJwtToken(userDetails.getUsername());
-//
-//        Optional<User> optionalUser = userRepository.findByUsername(userDetails.getUsername());
-//        if (optionalUser.isPresent()) {
-//            User user = optionalUser.get();
-//            user.setLoginToken(token);
-//            user.setLastLoginAt(LocalDateTime.now());
-//            userRepository.save(user);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
-//        }
-//
-//        return ResponseEntity.ok(Collections.singletonMap("token", token));
-//    }
-
-    // ✅ LOGIN
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginRequest.getUsername(),
-                            loginRequest.getPassword()
-                    )
-            );
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword()
+                )
+        );
 
-            System.out.println("User logged in: " + loginRequest.getUsername());
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            String token = jwtUtils.generateJwtToken(userDetails.getUsername());
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-            Optional<User> optionalUser = userRepository.findByUsername(userDetails.getUsername());
-            if (optionalUser.isPresent()) {
-                User user = optionalUser.get();
-                user.setLoginToken(token); // ✅ Overwrite previous token
-                user.setLastLoginAt(LocalDateTime.now());
-                userRepository.save(user);
+        String token = jwtUtils.generateJwtToken(userDetails.getUsername());
 
-                return ResponseEntity.ok(Collections.singletonMap("token", token));
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
+        Optional<User> optionalUser = userRepository.findByUsername(userDetails.getUsername());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setLoginToken(token);
+            user.setLastLoginAt(LocalDateTime.now());
+            userRepository.save(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
         }
+
+        return ResponseEntity.ok(Collections.singletonMap("token", token));
     }
 
     @PostMapping("/logout")
@@ -123,7 +92,6 @@ public class AuthController {
                 }
 
                 return ResponseEntity.ok("Logged out");
-
             } else {
                 return ResponseEntity.status(401).body("Invalid token - user not found");
             }
