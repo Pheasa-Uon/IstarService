@@ -1,4 +1,4 @@
-package com.istar.service.DTO.Administrator.UsersManagement;
+package com.istar.service.dto.Administrator.UsersManagement;
 
 public class FeaturePermissionDTO {
 
@@ -11,15 +11,15 @@ public class FeaturePermissionDTO {
     private Boolean isAdd;
     private Boolean isViewed;
     private Boolean isEdit;
-//    private Boolean isApprove;
-//    private Boolean isReject;
+    private Boolean isApprove;
+    private Boolean isReject;
     private Boolean isDeleted;
     private Boolean isSave;
     private Boolean isClear;
     private Boolean isCancel;
-//    private Boolean isProcess;
-//    private Boolean isImport;
-//    private Boolean isExport;
+    private Boolean isProcess;
+    private Boolean isImport;
+    private Boolean isExport;
     private Boolean bStatus;
 
     public FeaturePermissionDTO() {
@@ -91,21 +91,21 @@ public class FeaturePermissionDTO {
         this.isEdit = isEdit;
     }
 
-//    public Boolean getIsApprove() {
-//        return isApprove;
-//    }
-//
-//    public void setIsApprove(Boolean isApprove) {
-//        this.isApprove = isApprove;
-//    }
-//
-//    public Boolean getIsReject() {
-//        return isReject;
-//    }
-//
-//    public void setIsReject(Boolean isReject) {
-//        this.isReject = isReject;
-//    }
+    public Boolean getIsApprove() {
+        return isApprove;
+    }
+
+    public void setIsApprove(Boolean isApprove) {
+        this.isApprove = isApprove;
+    }
+
+    public Boolean getIsReject() {
+        return isReject;
+    }
+
+    public void setIsReject(Boolean isReject) {
+        this.isReject = isReject;
+    }
 
     public Boolean getIsDeleted() {
         return isDeleted;
@@ -139,29 +139,29 @@ public class FeaturePermissionDTO {
         this.isCancel = isCancel;
     }
 
-//    public Boolean getIsProcess() {
-//        return isProcess;
-//    }
-//
-//    public void setIsProcess(Boolean isProcess) {
-//        this.isProcess = isProcess;
-//    }
-//
-//    public Boolean getIsImport() {
-//        return isImport;
-//    }
-//
-//    public void setIsImport(Boolean isImport) {
-//        this.isImport = isImport;
-//    }
-//
-//    public Boolean getIsExport() {
-//        return isExport;
-//    }
-//
-//    public void setIsExport(Boolean isExport) {
-//        this.isExport = isExport;
-//    }
+    public Boolean getIsProcess() {
+        return isProcess;
+    }
+
+    public void setIsProcess(Boolean isProcess) {
+        this.isProcess = isProcess;
+    }
+
+    public Boolean getIsImport() {
+        return isImport;
+    }
+
+    public void setIsImport(Boolean isImport) {
+        this.isImport = isImport;
+    }
+
+    public Boolean getIsExport() {
+        return isExport;
+    }
+
+    public void setIsExport(Boolean isExport) {
+        this.isExport = isExport;
+    }
 
     public Boolean getBStatus() {
         return bStatus;

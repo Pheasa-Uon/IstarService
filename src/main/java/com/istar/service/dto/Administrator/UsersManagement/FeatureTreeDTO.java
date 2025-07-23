@@ -1,4 +1,4 @@
-package com.istar.service.DTO.Administrator.UsersManagement;
+package com.istar.service.dto.Administrator.UsersManagement;
 
 import java.util.ArrayList;
 import java.util.List;
