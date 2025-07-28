@@ -30,7 +30,7 @@ public class UserRoleController {
         return ResponseEntity.ok(userRole);
     }
 
-    @DeleteMapping("/remove")
+    @PostMapping("/remove")
     public ResponseEntity<String> removeRole(@RequestBody RoleAssignmentRequest request) {
         userRoleService.removeRoleFromUser(request.userId, request.roleId);
         return ResponseEntity.ok("Role removed from user");

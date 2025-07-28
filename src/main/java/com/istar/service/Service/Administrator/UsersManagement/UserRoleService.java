@@ -55,8 +55,14 @@ public class UserRoleService {
     }
 
     public List<Role> getUserRoles(Long userId) {
-        return userRoleRepository.findByUserId(userId).stream()
+        return userRoleRepository.findByUserIdAndBStatusTrue(userId).stream()
                 .map(UserRole::getRole)
                 .collect(Collectors.toList());
     }
+
+//    public List<Role> getUserRoles(Long userId) {
+//        return userRoleRepository.findByUserId(userId).stream()
+//                .map(UserRole::getRole)
+//                .collect(Collectors.toList());
+//    }
 }
