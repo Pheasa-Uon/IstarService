@@ -6,14 +6,17 @@ import com.istar.service.Entity.Administrator.UsersManagment.UserRole;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleRepository;
 import com.istar.service.Repository.Administrator.UsersManagement.UserRepository;
 import com.istar.service.Repository.Administrator.UsersManagement.UserRoleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserRoleService {
 
     @Autowired
@@ -26,25 +29,36 @@ public class UserRoleService {
     private UserRoleRepository userRoleRepository;
 
     public UserRole assignRoleToUser(Long userId, Long roleId) {
-        if (userRoleRepository.existsByUserIdAndRoleId(userId, roleId)) {
-            throw new RuntimeException("User already has this role");
+        // Check if role already assigned to the user
+        Optional<UserRole> existing = userRoleRepository.findByUserIdAndRoleId(userId, roleId);
+
+        if (existing.isPresent()) {
+            UserRole userRole = existing.get();
+            if (!Boolean.TRUE.equals(userRole.getbStatus())) {
+                // Reactivate the role assignment
+                userRole.setbStatus(true);
+                userRole.setUpdatedAt(LocalDateTime.now());
+                return userRoleRepository.save(userRole);
+            }
+            return userRole; // Already active, just return
         }
 
+        // Assign new role if not exists
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-
         Role role = roleRepository.findById(roleId)
                 .orElseThrow(() -> new RuntimeException("Role not found"));
 
-        UserRole userRole = new UserRole();
-        userRole.setUser(user);
-        userRole.setRole(role);
-        userRole.setCreatedAt(LocalDateTime.now());
-        userRole.setUpdatedAt(LocalDateTime.now());
-        userRole.setbStatus(true);
+        UserRole newUserRole = new UserRole();
+        newUserRole.setUser(user);
+        newUserRole.setRole(role);
+        newUserRole.setbStatus(true);
+        newUserRole.setCreatedAt(LocalDateTime.now());
+        newUserRole.setUpdatedAt(LocalDateTime.now());
 
-        return userRoleRepository.save(userRole);
+        return userRoleRepository.save(newUserRole);
     }
+
 
     public void removeRoleFromUser(Long userId, Long roleId) {
         UserRole userRole = userRoleRepository.findByUserIdAndRoleId(userId, roleId)
@@ -60,9 +74,4 @@ public class UserRoleService {
                 .collect(Collectors.toList());
     }
 
-//    public List<Role> getUserRoles(Long userId) {
-//        return userRoleRepository.findByUserId(userId).stream()
-//                .map(UserRole::getRole)
-//                .collect(Collectors.toList());
-//    }
 }

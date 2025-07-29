@@ -3,6 +3,7 @@ package com.istar.service.Controller.Administrator.UsersManagement;
 import com.istar.service.Entity.Administrator.UsersManagment.Role;
 import com.istar.service.Entity.Administrator.UsersManagment.UserRole;
 import com.istar.service.Service.Administrator.UsersManagement.UserRoleService;
+import com.istar.service.dto.Administrator.UsersManagement.RoleAssignmentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,12 +18,6 @@ public class UserRoleController {
 
     @Autowired
     private UserRoleService userRoleService;
-
-    // DTO for role assignment request
-    public static class RoleAssignmentRequest {
-        public Long userId;
-        public Long roleId;
-    }
 
     @PostMapping("/assign")
     public ResponseEntity<UserRole> assignRole(@RequestBody RoleAssignmentRequest request) {
