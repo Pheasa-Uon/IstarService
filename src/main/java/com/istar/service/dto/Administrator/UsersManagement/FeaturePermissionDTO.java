@@ -1,5 +1,8 @@
 package com.istar.service.dto.Administrator.UsersManagement;
 
+import lombok.Data;
+
+@Data
 public class FeaturePermissionDTO {
 
     private Long roleId;
@@ -7,19 +10,19 @@ public class FeaturePermissionDTO {
 
     private String code;
 
-    private Boolean isSearch;
-    private Boolean isAdd;
-    private Boolean isViewed;
-    private Boolean isEdit;
-    private Boolean isApprove;
-    private Boolean isReject;
-    private Boolean isDeleted;
-    private Boolean isSave;
-    private Boolean isClear;
-    private Boolean isCancel;
-    private Boolean isProcess;
-    private Boolean isImport;
-    private Boolean isExport;
+    private Boolean isSearch = false;
+    private Boolean isAdd = false;
+    private Boolean isViewed = false;
+    private Boolean isEdit = false;
+    private Boolean isApprove = false;
+    private Boolean isReject = false;
+    private Boolean isDeleted = false;
+    private Boolean isSave = false;
+    private Boolean isClear = false;
+    private Boolean isCancel = false;
+    private Boolean isProcess = false;
+    private Boolean isImport = false;
+    private Boolean isExport = false;
     private Boolean bStatus;
 
     public FeaturePermissionDTO() {
@@ -51,11 +54,11 @@ public class FeaturePermissionDTO {
         this.featureId = featureId;
     }
 
-    public String getCode() {
+    public String getFeatureCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setFeatureCode(String code) {
         this.code = code;
     }
 

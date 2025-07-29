@@ -22,7 +22,9 @@ public class UserRole {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    private Boolean bStatus = true;
+    @Column(name = "b_status")
+    private Boolean bStatus;
+
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
 

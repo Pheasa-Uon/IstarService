@@ -2,6 +2,7 @@ package com.istar.service.Entity.Administrator.UsersManagment;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "sys_users")
@@ -13,6 +14,9 @@ public class User {
 
     @Column(name = "user_code", length = 5, unique = true, nullable = false)
     private String userCode;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserRole> userRoles;
 
     @Column(nullable = false, unique = true)
     private String username;

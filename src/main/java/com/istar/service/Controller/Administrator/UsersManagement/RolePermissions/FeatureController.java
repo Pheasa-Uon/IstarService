@@ -1,8 +1,11 @@
-package com.istar.service.Controller.Administrator.UsersManagement;
+package com.istar.service.Controller.Administrator.UsersManagement.RolePermissions;
 
 import com.istar.service.Entity.Administrator.UsersManagment.Feature;
 import com.istar.service.Service.Administrator.UsersManagement.FeatureService;
+import com.istar.service.Service.Administrator.UsersManagement.PermissionService;
+import com.istar.service.dto.Administrator.UsersManagement.FeaturePermissionDTO;
 import com.istar.service.dto.Administrator.UsersManagement.FeatureTreeDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +50,18 @@ public class FeatureController {
     @GetMapping("/treetable")
     public ResponseEntity<List<FeatureTreeDTO>> getTreeTable() {
         return ResponseEntity.ok(featureService.getFeatureTree());
+    }
+
+    @RestController
+    @RequestMapping("/api/permissions")
+    @RequiredArgsConstructor
+    public static class PermissionController {
+
+        private final PermissionService permissionService;
+
+        @GetMapping("/user/{userId}")
+        public List<FeaturePermissionDTO> getPermissions(@PathVariable Long userId) {
+            return permissionService.getMergedPermissionsByUserId(userId);
+        }
     }
 }

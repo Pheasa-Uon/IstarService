@@ -1,4 +1,4 @@
-package com.istar.service.Controller.Administrator.UsersManagement;
+package com.istar.service.Controller.Administrator.UsersManagement.UserProfile;
 
 import com.istar.service.Entity.Administrator.UsersManagment.Role;
 import com.istar.service.Entity.Administrator.UsersManagment.UserRole;
