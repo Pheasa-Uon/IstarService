@@ -40,6 +40,7 @@ public class UserRoleService {
                 userRole.setUpdatedAt(LocalDateTime.now());
                 return userRoleRepository.save(userRole);
             }
+            System.out.println("Role already assigned to user " + userId + " - " + roleId + " - " + userRole.getbStatus());
             return userRole; // Already active, just return
         }
 
@@ -56,6 +57,7 @@ public class UserRoleService {
         newUserRole.setCreatedAt(LocalDateTime.now());
         newUserRole.setUpdatedAt(LocalDateTime.now());
 
+        System.out.println("Assigning role Id " + roleId + " to user Id " + userId);
         return userRoleRepository.save(newUserRole);
     }
 
