@@ -1,8 +1,8 @@
 package com.istar.service.Controller.Administrator.UsersManagement.RolePermissions;
 
 import com.istar.service.Entity.Administrator.UsersManagment.Feature;
-import com.istar.service.Service.Administrator.UsersManagement.FeatureService;
-import com.istar.service.Service.Administrator.UsersManagement.PermissionService;
+import com.istar.service.Service.Administrator.UsersManagement.Permission.FeatureService;
+import com.istar.service.Service.Administrator.UsersManagement.Permission.PermissionService;
 import com.istar.service.dto.Administrator.UsersManagement.FeaturePermissionDTO;
 import com.istar.service.dto.Administrator.UsersManagement.FeatureTreeDTO;
 import lombok.RequiredArgsConstructor;

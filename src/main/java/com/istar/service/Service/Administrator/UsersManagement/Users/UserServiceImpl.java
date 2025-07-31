@@ -1,21 +1,14 @@
-package com.istar.service.Service.Administrator.UsersManagement;
+package com.istar.service.Service.Administrator.UsersManagement.Users;
 
 import com.istar.service.Entity.Administrator.UsersManagment.Role;
 import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermission;
 import com.istar.service.Entity.Administrator.UsersManagment.User;
 import com.istar.service.Entity.Administrator.UsersManagment.UserRole;
 import com.istar.service.Repository.Administrator.UsersManagement.UserRoleRepository;
-import com.istar.service.dto.Administrator.UsersManagement.FeaturePermissionDTO;
+import com.istar.service.Service.Administrator.UsersManagement.Users.UserService;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleFeaturePermissionRepository;
 import com.istar.service.Repository.Administrator.UsersManagement.UserRepository;
-import com.istar.service.Security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

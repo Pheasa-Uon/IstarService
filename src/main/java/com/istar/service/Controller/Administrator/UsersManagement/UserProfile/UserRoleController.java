@@ -2,7 +2,7 @@ package com.istar.service.Controller.Administrator.UsersManagement.UserProfile;
 
 import com.istar.service.Entity.Administrator.UsersManagment.Role;
 import com.istar.service.Entity.Administrator.UsersManagment.UserRole;
-import com.istar.service.Service.Administrator.UsersManagement.UserRoleService;
+import com.istar.service.Service.Administrator.UsersManagement.Users.UserRoleService;
 import com.istar.service.dto.Administrator.UsersManagement.RoleAssignmentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
