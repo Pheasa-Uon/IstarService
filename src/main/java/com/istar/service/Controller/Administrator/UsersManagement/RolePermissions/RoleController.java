@@ -1,7 +1,7 @@
 package com.istar.service.Controller.Administrator.UsersManagement.RolePermissions;
 
 import com.istar.service.Entity.Administrator.UsersManagment.Role;
-import com.istar.service.Service.Administrator.UsersManagement.RoleService;
+import com.istar.service.Service.Administrator.UsersManagement.Permission.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
