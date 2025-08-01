@@ -3,7 +3,6 @@ package com.istar.service.Entity.Administrator.UsersManagment;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // ✅ Ignore proxy fields
 @Entity
@@ -22,9 +21,6 @@ public class Role {
     @Column(name = "roles_status")
     private String rolesStatus;
 
-    @OneToMany(mappedBy = "role")
-    private List<RoleFeaturePermission> featurePermissions;
-
     @Column(name = "b_status", nullable = false)
     private Boolean bStatus;
 
@@ -35,8 +31,6 @@ public class Role {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
-
-
 
     // --- Getters and Setters ---
 

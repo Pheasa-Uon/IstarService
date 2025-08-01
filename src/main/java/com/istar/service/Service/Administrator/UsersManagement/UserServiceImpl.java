@@ -1,10 +1,7 @@
 package com.istar.service.Service.Administrator.UsersManagement;
 
-import com.istar.service.Entity.Administrator.UsersManagment.Role;
 import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermission;
 import com.istar.service.Entity.Administrator.UsersManagment.User;
-import com.istar.service.Entity.Administrator.UsersManagment.UserRole;
-import com.istar.service.Repository.Administrator.UsersManagement.UserRoleRepository;
 import com.istar.service.dto.Administrator.UsersManagement.FeaturePermissionDTO;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleFeaturePermissionRepository;
 import com.istar.service.Repository.Administrator.UsersManagement.UserRepository;
@@ -20,7 +17,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -125,27 +125,58 @@ public class UserServiceImpl implements UserService {
     }
 
     @Autowired
-    private UserRoleRepository userRoleRepository;
+    private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    // Injected repository
     @Autowired
     private RoleFeaturePermissionRepository roleFeaturePermissionRepository;
 
-    public List<Role> getActiveRolesByUser(Long userId) {
-        return userRoleRepository.findByUserIdAndBStatusTrue(userId).stream()
-                .map(UserRole::getRole)
-                .filter(role -> Boolean.TRUE.equals(role.getBStatus())) // just in case
-                .collect(Collectors.toList());
-    }
+    // New method for login + return JWT + role permissions
+    public ResponseEntity<?> authenticateUser(String username, String password) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password)
+            );
 
-    public List<RoleFeaturePermission> getPermissionsByUser(Long userId) {
-        List<Long> roleIds = getActiveRolesByUser(userId).stream()
-                .map(Role::getId)
-                .collect(Collectors.toList());
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        if (roleIds.isEmpty()) {
-            return Collections.emptyList();
+            String token = jwtUtils.generateJwtToken(userDetails.getUsername());
+
+            User user = userRepository.findByUsername(userDetails.getUsername())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            user.setLoginToken(token);
+            user.setLastLoginAt(LocalDateTime.now());
+            userRepository.save(user);
+
+            // Fetch role feature permissions
+            List<RoleFeaturePermission> permissions = roleFeaturePermissionRepository
+                    .findByRoleId(user.getRole().getId());
+
+            List<FeaturePermissionDTO> permissionDTOs = permissions.stream()
+                    .map(rfp -> new FeaturePermissionDTO(
+                            rfp.getFeature().getCode(),
+                            rfp.getIsSearch(),
+                            rfp.getIsAdd(),
+                            rfp.getIsViewed(),
+                            rfp.getIsEdit(),
+                            rfp.getIsDeleted()))
+                    .collect(Collectors.toList());
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+            response.put("username", user.getUsername());
+            response.put("role", user.getRole().getName());
+            response.put("permissions", permissionDTOs);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
-
-        return roleFeaturePermissionRepository.findByRoleIdIn(roleIds);
     }
+
+
 }

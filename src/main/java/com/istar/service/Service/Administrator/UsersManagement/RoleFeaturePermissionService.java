@@ -143,5 +143,4 @@ public class RoleFeaturePermissionService {
         target.setIsExport(source.getIsExport());
         target.setBStatus(source.getBStatus());
     }
-
 }

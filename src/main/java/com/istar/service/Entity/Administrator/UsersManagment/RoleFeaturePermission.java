@@ -1,16 +1,11 @@
 package com.istar.service.Entity.Administrator.UsersManagment;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDateTime;
 
 
 @Entity
 @Table(name = "sys_role_feature_permissions")
-@Data
 public class RoleFeaturePermission {
 
     @Id
@@ -38,8 +33,7 @@ public class RoleFeaturePermission {
     private Boolean isProcess = false;
     private Boolean isImport = false;
     private Boolean isExport = false;
-
-    private Boolean bStatus;
+    private Boolean bStatus = true;
 
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
