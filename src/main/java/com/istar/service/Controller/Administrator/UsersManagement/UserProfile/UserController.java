@@ -1,7 +1,7 @@
 package com.istar.service.Controller.Administrator.UsersManagement.UserProfile;
 
 import com.istar.service.Entity.Administrator.UsersManagment.User;
-import com.istar.service.Service.Administrator.UsersManagement.Users.UserService;
+import com.istar.service.Service.Administrator.UsersManagement.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

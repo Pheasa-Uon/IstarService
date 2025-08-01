@@ -1,4 +1,4 @@
-package com.istar.service.Service.Administrator.UsersManagement.Users;
+package com.istar.service.Service.Administrator.UsersManagement;
 
 import com.istar.service.Entity.Administrator.UsersManagment.User;
 import java.util.List;

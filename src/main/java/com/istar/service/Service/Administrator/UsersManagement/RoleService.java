@@ -1,4 +1,4 @@
-package com.istar.service.Service.Administrator.UsersManagement.Permission;
+package com.istar.service.Service.Administrator.UsersManagement;
 
 import com.istar.service.Entity.Administrator.UsersManagment.Role;
 import com.istar.service.Repository.Administrator.UsersManagement.RoleRepository;

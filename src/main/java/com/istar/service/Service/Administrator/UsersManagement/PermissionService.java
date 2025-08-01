@@ -1,4 +1,4 @@
-package com.istar.service.Service.Administrator.UsersManagement.Permission;
+package com.istar.service.Service.Administrator.UsersManagement;
 
 import com.istar.service.dto.Administrator.UsersManagement.FeaturePermissionDTO;
 import com.istar.service.Entity.Administrator.UsersManagment.RoleFeaturePermission;
