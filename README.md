@@ -1,5 +1,4 @@
-## SYSTEM FLOW STRUCTURE OVERVIEW
-```angular2html
+SYSTEM FLOW STRUCTURE OVERVIEW
 ┌────────────┐       ┌────────────┐       ┌────────────┐
 │   Users    │──────▶│   Roles    │──────▶│ Permissions│
 └────┬───────┘       └────┬───────┘       └────┬───────┘
@@ -9,10 +8,7 @@
 │ UserProfile│                │   Features ││ RoleFeature  │
 └────────────┘                └────────────┘└──────────────┘
 
-```
-
-## SPRING BOOT BACKEND STRUCTURE
-``` 
+SPRING BOOT BACKEND STRUCTURE
 com.yourapp
 ├── config
 │   └── SecurityConfig.java
@@ -44,6 +40,4 @@ com.yourapp
 │   ├── UserService.java
 │   └── RolePermissionService.java
 └── YourAppApplication.java
-```
-
 
